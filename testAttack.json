@@ -1,0 +1,548 @@
+{
+"openapi": "3.0.1",
+"info": {
+"title": "Job Runner",
+"description": "Job Runner Client",
+"contact": {
+"name": "Artwork integration dev",
+"email": "artworkintegrationandanalytics@cimpress.com"
+},
+"version": "v1"
+},
+"paths": {
+"/Configuration": {
+"get": {
+"tags": [
+"Configuration"
+],
+"summary": "Get list of all master configuration",
+"responses": {
+"200": {
+"description": "Success"
+}
+}
+},
+"post": {
+"tags": [
+"Configuration"
+],
+"summary": "Saves a master configuration",
+"parameters": [
+{
+"name": "key",
+"in": "query",
+"description": "Configuration key",
+"schema": {
+"type": "string"
+}
+},
+{
+"name": "type",
+"in": "query",
+"description": "Configuration type",
+"schema": {
+"enum": [
+"Integer",
+"DecimalNumber",
+"Boolean",
+"Text",
+"Email",
+"URL",
+"Date"
+],
+"type": "string"
+}
+},
+{
+"name": "value",
+"in": "query",
+"description": "Configuration value",
+"schema": {
+"type": "string"
+}
+},
+{
+"name": "description",
+"in": "query",
+"description": "Configuration description",
+"schema": {
+"type": "string"
+}
+}
+],
+"responses": {
+"200": {
+"description": "Success"
+}
+}
+}
+},
+"/Configuration/{key}": {
+"get": {
+"tags": [
+"Configuration"
+],
+"summary": "Gets a particular configuration",
+"parameters": [
+{
+"name": "key",
+"in": "path",
+"description": "Configuration key",
+"required": true,
+"schema": {
+"type": "string"
+}
+}
+],
+"responses": {
+"200": {
+"description": "Success"
+}
+}
+},
+"put": {
+"tags": [
+"Configuration"
+],
+"summary": "Updates configuration",
+"parameters": [
+{
+"name": "key",
+"in": "path",
+"description": "Key",
+"required": true,
+"schema": {
+"type": "string"
+}
+},
+{
+"name": "newValue",
+"in": "query",
+"description": "New key",
+"schema": {
+"type": "string"
+}
+},
+{
+"name": "newDescription",
+"in": "query",
+"description": "New description",
+"schema": {
+"type": "string"
+}
+}
+],
+"responses": {
+"200": {
+"description": "Success"
+}
+}
+}
+},
+"/Configuration/endpoints": {
+"get": {
+"tags": [
+"Configuration"
+],
+"summary": "Gets list of all configured endpoint",
+"responses": {
+"200": {
+"description": "Success"
+}
+}
+}
+},
+"/Configuration/endpoint/{id}": {
+"get": {
+"tags": [
+"Configuration"
+],
+"summary": "Gets a particular endpoint",
+"parameters": [
+{
+"name": "id",
+"in": "path",
+"description": "Endpoint id",
+"required": true,
+"schema": {
+"type": "string"
+}
+}
+],
+"responses": {
+"200": {
+"description": "Success"
+}
+}
+},
+"put": {
+"tags": [
+"Configuration"
+],
+"summary": "Updates the endpoint configuration",
+"parameters": [
+{
+"name": "id",
+"in": "path",
+"description": "Endpoint id",
+"required": true,
+"schema": {
+"type": "string"
+}
+}
+],
+"requestBody": {
+"description": "Instance of AIAA.Jobs.Client.Models.Inputs.EndpointInput to update the current endpoint",
+"content": {
+"application/json": {
+"schema": {
+"$ref": "#/components/schemas/EndpointInput"
+}
+},
+"text/json": {
+"schema": {
+"$ref": "#/components/schemas/EndpointInput"
+}
+},
+"application/*+json": {
+"schema": {
+"$ref": "#/components/schemas/EndpointInput"
+}
+}
+}
+},
+"responses": {
+"200": {
+"description": "Success"
+}
+}
+}
+},
+"/Configuration/endpoint": {
+"post": {
+"tags": [
+"Configuration"
+],
+"summary": "Saves a new endpoint, that needs to be configured",
+"requestBody": {
+"description": "instance of AIAA.Jobs.Client.Models.Inputs.EndpointInput",
+"content": {
+"application/json": {
+"schema": {
+"$ref": "#/components/schemas/EndpointInput"
+}
+},
+"text/json": {
+"schema": {
+"$ref": "#/components/schemas/EndpointInput"
+}
+},
+"application/*+json": {
+"schema": {
+"$ref": "#/components/schemas/EndpointInput"
+}
+}
+}
+},
+"responses": {
+"200": {
+"description": "Success"
+}
+}
+}
+},
+"/enqueue/swagger.json": {
+"get": {
+"tags": [
+"Generic"
+],
+"responses": {
+"200": {
+"description": "Success"
+}
+}
+}
+},
+"/v1/artworkaggregator/artwork/patches1": {
+"get": {
+"tags": [
+"Job"
+],
+"summary": "Enqueue a job for artwork aggregation",
+"parameters": [
+{
+"name": "workitemUrl",
+"in": "query",
+"description": "Work item URL",
+"schema": {
+"type": "string"
+}
+},
+{
+"name": "callbackUrl",
+"in": "query",
+"description": "Callback URL",
+"schema": {
+"type": "string"
+}
+}
+],
+"responses": {
+"200": {
+"description": "Success"
+}
+}
+}
+},
+"/v1/jobs": {
+"get": {
+"tags": [
+"Job"
+],
+"summary": "Get list of all jobs",
+"responses": {
+"200": {
+"description": "Success"
+}
+}
+}
+},
+"/v1/update/{jobId}": {
+"post": {
+"tags": [
+"Job"
+],
+"summary": "Updates job",
+"parameters": [
+{
+"name": "jobId",
+"in": "path",
+"description": "Id of job to update",
+"required": true,
+"schema": {
+"type": "string"
+}
+}
+],
+"requestBody": {
+"description": "Instance of AIAA.Jobs.Client.Models.Inputs.JobUpdateInput",
+"content": {
+"application/json": {
+"schema": {
+"$ref": "#/components/schemas/JobUpdateInput"
+}
+},
+"text/json": {
+"schema": {
+"$ref": "#/components/schemas/JobUpdateInput"
+}
+},
+"application/*+json": {
+"schema": {
+"$ref": "#/components/schemas/JobUpdateInput"
+}
+}
+}
+},
+"responses": {
+"200": {
+"description": "Success"
+}
+}
+}
+},
+"/v1/callback/{jobId}": {
+"post": {
+"tags": [
+"Job"
+],
+"summary": "Callback endpoint for actual services",
+"parameters": [
+{
+"name": "jobId",
+"in": "path",
+"description": "Job id",
+"required": true,
+"schema": {
+"type": "string"
+}
+}
+],
+"requestBody": {
+"description": "Response returned by actual service",
+"content": {
+"application/json": {
+"schema": {}
+},
+"text/json": {
+"schema": {}
+},
+"application/*+json": {
+"schema": {}
+}
+}
+},
+"responses": {
+"200": {
+"description": "Success"
+}
+}
+}
+},
+"/v1/job/{jobId}": {
+"get": {
+"tags": [
+"Job"
+],
+"summary": "Poll for Job",
+"parameters": [
+{
+"name": "jobId",
+"in": "path",
+"description": "Job id",
+"required": true,
+"schema": {
+"type": "string"
+}
+}
+],
+"responses": {
+"200": {
+"description": "Success"
+}
+}
+}
+}
+},
+"components": {
+"schemas": {
+"EndpointInput": {
+"type": "object",
+"properties": {
+"name": {
+"type": "string",
+"nullable": true
+},
+"description": {
+"type": "string",
+"nullable": true
+},
+"serverHost": {
+"type": "string",
+"nullable": true
+},
+"path": {
+"type": "string",
+"nullable": true
+},
+"httpMethod": {
+"enum": [
+"GET",
+"POST",
+"PUT",
+"DELETE",
+"HEAD",
+"OPTIONS",
+"PATCH",
+"MERGE"
+],
+"type": "string",
+"nullable": true
+},
+"openApiSpecification": {
+"type": "object",
+"example": "https://spec.openapis.org"
+},
+"priority": {
+"enum": [
+"Low",
+"Medium",
+"High"
+],
+"type": "string",
+"nullable": true
+},
+"retry": {
+"type": "integer",
+"format": "int32",
+"nullable": true
+},
+"timeout": {
+"type": "object",
+"example": "dd.hh:mm:ss"
+},
+"batchUnit": {
+"enum": [
+"Hours",
+"Minutes",
+"Seconds"
+],
+"type": "string",
+"description": "Batch unit like per hour, minute, or second",
+"nullable": true
+},
+"batchSize": {
+"type": "integer",
+"format": "int32"
+},
+"active": {
+"type": "boolean"
+}
+},
+"additionalProperties": false
+},
+"JobUpdateInput": {
+"type": "object",
+"properties": {
+"jobStatus": {
+"enum": [
+"Accepted",
+"Starting",
+"Running",
+"AwaitingCallback",
+"CallbackFailed",
+"Completed",
+"Failed",
+"Exception",
+"Timeout"
+],
+"type": "string",
+"nullable": true
+},
+"priority": {
+"enum": [
+"Low",
+"Medium",
+"High"
+],
+"type": "string",
+"nullable": true
+},
+"remark": {
+"type": "string",
+"nullable": true
+},
+"retry": {
+"type": "integer",
+"format": "int32",
+"nullable": true
+}
+},
+"additionalProperties": false
+}
+},
+"securitySchemes": {
+"Bearer": {
+"type": "apiKey",
+"description": "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+"name": "Authorization",
+"in": "header"
+}
+}
+},
+"security": [
+{
+"Bearer": []
+}
+]
+}
